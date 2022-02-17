@@ -1,13 +1,42 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+  <title>Lista de Convidados</title>
+</head>
+
 <body>
-  <input type="text" id="nome"> 
-  <br/>
-  <br/>
-  <button id="adicionar">Adicionar Convidado</button>
-  <br/>
-  <br/>
-  <button id="listar">Listar Convidado</button>
-  <script src="./bundle.js" type="application/javascript"></script>
+  <div id="app">
+    <h1>Lista de Convidados</h1>
+    <ul id="lista">
+    </ul>
+
+    <input id="nome" type="text" placeholder="Digite o nome do convidado" />
+    <button id="botao">Cadastrar</button>
+  </div>
+  <script type="text/javascript">
+
+    const elista = document.getElementById('lista')
+    const enome = document.getElementById('nome')
+    const ebotao = document.getElementById('botao')
+
+    const convidados = [
+      { id: 1, nome: 'Eloilson', idade: 34 },
+      { id: 2, nome: 'Maria', idade: 30 },
+      { id: 3, nome: 'Emilly', idade: 10 },
+      { id: 4, nome: 'Nicolas', idade: 4 },
+      { id: 5, nome: 'David', idade: 1.6 },
+    ];
+
+    for (convidado of convidados) {
+      const elConvidado = document.createElement('li');
+      const elNome = document.createTextNode(convidado.nome)
+
+      elConvidado.appendChild(elNome);
+      elista.appendChild(elConvidado)
+    }
+
+  </script>
 </body>
+
 </html>

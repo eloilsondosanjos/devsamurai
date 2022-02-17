@@ -1,7 +1,5 @@
 module.exports = {
-  target: 'node',
-  externals: [nodeExternals()],
-  entry: "./main.js",
+  entry: ["@babel/polyfill", "./src/index.js"],
   output: {
     path: __dirname,
     filename: "bundle.js"
