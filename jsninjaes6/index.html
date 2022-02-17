@@ -28,13 +28,32 @@
       { id: 5, nome: 'David', idade: 1.6 },
     ];
 
-    for (convidado of convidados) {
-      const elConvidado = document.createElement('li');
-      const elNome = document.createTextNode(convidado.nome)
+    const listarConvidados = function () {
+      elista.innerHTML = '';
+      for (convidado of convidados) {
+        const elConvidado = document.createElement('li');
+        const elNome = document.createTextNode(convidado.nome)
 
-      elConvidado.appendChild(elNome);
-      elista.appendChild(elConvidado)
+        elConvidado.appendChild(elNome);
+        elista.appendChild(elConvidado)
+      }
     }
+
+    listarConvidados();
+
+    const adicionarConvidado = function () {
+      const nome = enome.value;
+
+      if (nome) {
+        convidados.push({ nome: nome });
+        enome.value = '';
+        listarConvidados();
+      } else {
+        alert("Campo nome não pode ser vazio!")
+      }
+    }
+
+    ebotao.onclick = adicionarConvidado;
 
   </script>
 </body>
