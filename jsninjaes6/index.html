@@ -15,46 +15,59 @@
     <button id="botao">Cadastrar</button>
   </div>
   <script type="text/javascript">
+    
+    let convidados = JSON.parse(localStorage.getItem('convidados')) || [];
 
-    const elista = document.getElementById('lista')
-    const enome = document.getElementById('nome')
-    const ebotao = document.getElementById('botao')
-
-    const convidados = [
-      { id: 1, nome: 'Eloilson', idade: 34 },
-      { id: 2, nome: 'Maria', idade: 30 },
-      { id: 3, nome: 'Emilly', idade: 10 },
-      { id: 4, nome: 'Nicolas', idade: 4 },
-      { id: 5, nome: 'David', idade: 1.6 },
-    ];
-
-    const listarConvidados = function () {
-      elista.innerHTML = '';
-      for (convidado of convidados) {
-        const elConvidado = document.createElement('li');
-        const elNome = document.createTextNode(convidado.nome)
-
-        elConvidado.appendChild(elNome);
-        elista.appendChild(elConvidado)
-      }
-    }
-
-    listarConvidados();
-
-    const adicionarConvidado = function () {
+    const elista = document.getElementById('lista');
+    const enome = document.getElementById('nome');
+    const ebotao = document.getElementById('botao');
+    
+    ebotao.onclick = function adicionarConvidado() {
       const nome = enome.value;
 
       if (nome) {
         convidados.push({ nome: nome });
         enome.value = '';
+
+        salvarConvidados();      
         listarConvidados();
       } else {
         alert("Campo nome não pode ser vazio!")
       }
     }
 
-    ebotao.onclick = adicionarConvidado;
+    function salvarConvidados() {
+      localStorage.setItem('convidados', JSON.stringify(convidados));
 
+    }
+
+    function listarConvidados() {
+      elista.innerHTML = '';
+      for (const convidado of convidados) {
+        const elConvidado = document.createElement('li');
+        const elNome = document.createTextNode(convidado.nome)
+
+        const elExcluir = document.createElement('a');
+        elExcluir.setAttribute("href", "#");
+
+        elExcluir.onclick = function() {
+          convidados = convidados.filter(function(item) {
+            return item.nome !== convidado.nome;
+          });
+          salvarConvidados(); 
+          listarConvidados();
+        };
+
+        const elExcluirTexto = document.createTextNode('Excluir');
+        
+        elExcluir.appendChild(elExcluirTexto);
+        elConvidado.appendChild(elNome);
+        elConvidado.appendChild(elExcluir);
+        elista.appendChild(elConvidado)
+      }
+    }
+
+    listarConvidados();
   </script>
 </body>
 
